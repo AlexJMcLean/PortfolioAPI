@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import cors from "cors";
 
 import contactRoutes from "./routes/contact.js";
+import postRoutes from "./routes/posts.js";
 
 const app = express();
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(cors());
 
 // Routes
 app.use("/contact", contactRoutes);
+app.use("/posts", postRoutes);
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
