@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
+import mongoose from "mongoose";
 
 import contactRoutes from "./routes/contact.js";
 import postRoutes from "./routes/posts.js";
@@ -19,6 +20,14 @@ app.use(cors());
 app.use("/contact", contactRoutes);
 app.use("/posts", postRoutes);
 
-app.listen(PORT, () => {
-  console.log(`listening on port ${PORT}`);
-});
+mongoose
+  .connect(process.env.CONNECTION_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() =>
+    app.listen(PORT, () => {
+      console.log(`listening on port ${PORT}`);
+    })
+  )
+  .catch((error) => console.log(error.message));
