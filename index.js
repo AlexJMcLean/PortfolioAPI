@@ -12,8 +12,8 @@ dotenv.config();
 const route = express.Router();
 const PORT = process.env.PORT || 5000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: '50mb', extended: true}));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: false }));
 app.use(cors());
 
 // Routes
