@@ -12,8 +12,16 @@ export const getPosts = async (req, res) => {
 };
 
 export const createPosts = async (req, res) => {
-  const { title, image, snippet, body, date } = req.body;
-  const newPost = new PostBlog({ title, image, snippet, body, date });
+  const { title, slug, image, imageAlt, snippet, body, date } = req.body;
+  const newPost = new PostBlog({
+    title,
+    slug,
+    image,
+    imageAlt,
+    snippet,
+    body,
+    date,
+  });
   try {
     await newPost.save();
     res.status(201).json(newPost);
