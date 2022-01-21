@@ -5,7 +5,6 @@ export const getPosts = async (req, res) => {
   try {
     const postBlogs = await PostBlog.find();
 
-    console.log(postBlogs);
     res.status(200).json(postBlogs);
   } catch (error) {
     res.status(404).json({ message: error.message });
