@@ -6,6 +6,7 @@ import mongoose from "mongoose";
 
 import contactRoutes from "./routes/contact.js";
 import postRoutes from "./routes/posts.js";
+import userRoutes from "./routes/user.js";
 
 const app = express();
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(cors());
 // Routes
 app.use("/contact", contactRoutes);
 app.use("/posts", postRoutes);
+app.use("/user", userRoutes);
 
 mongoose
   .connect(process.env.CONNECTION_URL, {
