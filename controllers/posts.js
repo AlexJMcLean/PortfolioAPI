@@ -1,3 +1,4 @@
+import res from "express/lib/response";
 import mongoose from "mongoose";
 import PostBlog from "../models/postBlog.js";
 
