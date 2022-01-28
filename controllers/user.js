@@ -49,3 +49,15 @@ export const signup = async (req, res) => {
 
   res.status(200).json({ result: existingUser, token });
 };
+
+export const demo = async (req, res) => {
+  const email = "demo";
+  const existingUser = await User.findOne({ email });
+  const token = jwt.sign(
+    { email: existingUser.email, id: existingUser._id },
+    process.env.JWT_SECRET,
+    { expiresIn: "1h" }
+  );
+
+  res.status(200).json({ result: existingUser, token });
+};
