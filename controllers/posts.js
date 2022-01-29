@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import PostBlog from "../models/postBlog.js";
+import findUserRole from "../utils/findUserRole.js";
 
 export const getPosts = async (req, res) => {
   try {
@@ -12,6 +13,10 @@ export const getPosts = async (req, res) => {
 };
 
 export const createPosts = async (req, res) => {
+  const userRole = await findUserRole(req.userId);
+
+  if (userRole !== "admin")
+    return res.status(401).json({ message: "Unauthorized" });
   const { title, slug, image, imageAlt, snippet, body, date } = req.body;
   const newPost = new PostBlog({
     title,
@@ -31,6 +36,11 @@ export const createPosts = async (req, res) => {
 };
 
 export const updatePost = async (req, res) => {
+  const userRole = await findUserRole(req.userId);
+
+  if (userRole !== "admin")
+    return res.status(401).json({ message: "Unauthorized" });
+
   const { id: _id } = req.params;
   const post = req.body;
 
@@ -48,6 +58,10 @@ export const updatePost = async (req, res) => {
 };
 
 export const deletePost = async (req, res) => {
+  const userRole = await findUserRole(req.userId);
+
+  if (userRole !== "admin")
+    return res.status(401).json({ message: "Unauthorized" });
   const { id: _id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(_id))
