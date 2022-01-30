@@ -13,9 +13,15 @@ export const getPosts = async (req, res) => {
 };
 
 export const getPost = async (req, res) => {
-  const { slug } = req.params;
-  const blog = await PostBlog.find({ slug });
-  console.log(blog);
+  try {
+    const { slug } = req.params;
+    const blog = await PostBlog.find({ slug });
+
+    console.log(blog);
+    res.status(201).json(blog);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
 };
 
 export const createPosts = async (req, res) => {
