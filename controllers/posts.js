@@ -12,6 +12,12 @@ export const getPosts = async (req, res) => {
   }
 };
 
+export const getPost = async (req, res) => {
+  const { slug } = req.params;
+  const blog = await PostBlog.find({ slug });
+  console.log(blog);
+};
+
 export const createPosts = async (req, res) => {
   const userRole = await findUserRole(req.userId);
 
