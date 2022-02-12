@@ -17,7 +17,6 @@ export const getPost = async (req, res) => {
     const { slug } = req.params;
     const blog = await PostBlog.find({ slug });
 
-    console.log(blog);
     res.status(201).json(blog);
   } catch (error) {
     res.status(404).json({ message: error.message });
