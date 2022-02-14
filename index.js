@@ -23,6 +23,10 @@ app.use("/contact", contactRoutes);
 app.use("/posts", postRoutes);
 app.use("/user", userRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Hello from Portfolio API");
+});
+
 mongoose
   .connect(process.env.CONNECTION_URL, {
     useNewUrlParser: true,
