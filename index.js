@@ -28,18 +28,6 @@ app.get("/", (req, res) => {
   res.send("Hello from Portfolio API");
 });
 
-mongoose
-  .connect(process.env.CONNECTION_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() =>
-    app.listen(PORT, () => {
-      console.log(`listening on port ${PORT}`);
-    })
-  )
-  .catch((error) => console.log(error.message));
-
 process
   .on("SIGTERM", shutdown("SIGTERM"))
   .on("SIGINT", shutdown("SIGINT"))
@@ -60,3 +48,15 @@ function shutdown(signal) {
     }, 5000).unref();
   };
 }
+
+mongoose
+  .connect(process.env.CONNECTION_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() =>
+    app.listen(PORT, () => {
+      console.log(`listening on port ${PORT}`);
+    })
+  )
+  .catch((error) => console.log(error.message));
