@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 import mongoose from "mongoose";
+import http from "http";
 
 import contactRoutes from "./routes/contact.js";
 import postRoutes from "./routes/posts.js";
@@ -38,3 +39,24 @@ mongoose
     })
   )
   .catch((error) => console.log(error.message));
+
+process
+  .on("SIGTERM", shutdown("SIGTERM"))
+  .on("SIGINT", shutdown("SIGINT"))
+  .on("uncaughtException", shutdown("uncaughtException"));
+
+setInterval(console.log.bind(console, "tick"), 1000);
+http
+  .createServer((req, res) => res.end("hi"))
+  .listen(process.env.PORT || 3000, () => console.log("Listening"));
+
+function shutdown(signal) {
+  return (err) => {
+    console.log(`${signal}...`);
+    if (err) console.error(err.stack || err);
+    setTimeout(() => {
+      console.log("...waited 5s, exiting.");
+      process.exit(err ? 1 : 0);
+    }, 5000).unref();
+  };
+}
